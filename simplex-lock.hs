@@ -4,13 +4,13 @@ digits = [1..5]
 
 -- Return all k combinations of (x:xs)
 combinations :: Int -> [b] -> [[b]]
-combinations 0 _  = [[]]
-combinations _ []  =  []
+combinations 0 _       = [[]]
+combinations _ []      =  []
 combinations k (x:xs)  = map (x:) (combinations (k-1) xs) ++ combinations k xs
 
 -- Return elements of xs that appear after x.
 after xs x = case dropWhile (/= x) xs of
-  [] -> []
+  []   -> []
   x:xs -> xs
 
 -- Return elements of xs that are not in ys.
@@ -29,9 +29,9 @@ chain xs d = map (\a -> d ++ [a]) ys
 next tuples = \xs -> concat $ map (chain xs) (tuples xs)
 
 -- Elevate tuple-generating function to the nth order.
-elevate n tuples =
-  if n <= 0 then tuples
-  else elevate (n - 1) (next tuples)
+elevate n tuples
+  |  n <= 0    =  tuples
+  | otherwise  =  elevate (n - 1) (next tuples)
 
 ntuples n = elevate (n - 1) singles
 
