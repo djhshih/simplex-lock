@@ -1,4 +1,4 @@
-import Data.List (permutations, intersect)
+import Data.List (permutations, intersect, intercalate)
 
 digits = [1..5]
 
@@ -110,4 +110,12 @@ b1 = [ [s] | s <- singles digits ]
 -- not included: null combination (door is always open)
 codes = b1 ++ b2 ++ b3 ++ b4 ++ b5
 
+
+showCodes cs = unlines $ map showCode cs
+  where
+    showCode code = intercalate " " $ map showEntry code
+    showEntry xs = intercalate "&" $ map show xs
+
+main = do
+  putStr $ showCodes codes
 
